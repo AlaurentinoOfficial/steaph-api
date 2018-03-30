@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
 
-exports.Mongo = "mongodb";
+exports.MongoDB = false;
 
 exports.DbConfig = (link) => {
     mongoose.connect(link)
@@ -8,6 +8,7 @@ exports.DbConfig = (link) => {
     // Mongoose log
     mongoose.connection.on('connected', () => {
         console.log('\n> Database connected!\n')
+        MongoDB = true;
     });
 
     mongoose.connection.on('error', (err) => {
