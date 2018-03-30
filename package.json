@@ -1,5 +1,5 @@
 {
-  "name": "name",
+  "name": "steaph",
   "version": "1.0.0",
   "description": "description",
   "main": "dist/bin/www.js",
@@ -10,8 +10,8 @@
     "docker": "babel ./src/ --out-dir ./dist && node dist/bin/www.js --docker"
   },
   "keywords": [
-    "key",
-    "words"
+    "iot",
+    "steaph"
   ],
   "author": "Anderson Laurentino",
   "license": "Alaurentino",
