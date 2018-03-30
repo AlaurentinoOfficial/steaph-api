@@ -37,4 +37,13 @@ body.updateEnvById = (req, res) => {
     });
 }
 
+body.deleteEnvById() = (req, res) => {
+    EnvironmentSchema.remove({solution: res.locals.solution._id, _id: req.params.id}, (err, d) => {
+        if(err)
+            return res.json(Strings.INVALID_ENVIRONMENT);
+        
+        res.json(Strings.SUCCEFULY);
+    })
+}
+
 exports.EnvironmentController = body
