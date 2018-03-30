@@ -11,11 +11,11 @@ function Authenticate(options) {
         let token = req.headers["authorization"].replace("CRM ", "")
 
         jwt.verify(token, Server.get('crypt_key'), (err, result) => {
-            if(err || !result) return res.json(Strings.error.INVALID_TOKEN)
+            if(err || !result) return res.json(Strings.INVALID_TOKEN)
 
             SolutionSchema.findOne({_id: result.data}, (er, u) => {
                 if(er || !u)
-                    return res.json(Strings.error.INVALID_USER)
+                    return res.json(Strings.INVALID_USER)
                 
                 res.locals.user = u
                 next()

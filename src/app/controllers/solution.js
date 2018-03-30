@@ -9,7 +9,7 @@ var body = {}
 body.login = (req, res) => {
     SolutionSchema.findOne({email: req.body.email}, (err, solution) => {
         if(err || !solution)
-            return res.json(Strings.error.INVALID_EMAIL)
+            return res.json(Strings.INVALID_EMAIL)
 
         solution.comparePassword(req.body.password, (err, isMatch) => {
             if(isMatch && !err)
@@ -25,7 +25,7 @@ body.login = (req, res) => {
                 return res.json(solution)
             }
             else
-                return res.json(Strings.error.INVALID_PASSWORD)
+                return res.json(Strings.INVALID_PASSWORD)
         });
     });
 }
@@ -35,9 +35,9 @@ body.password = (req, res) => {
 
     SolutionSchema.findOneAndUpdate({_id: res.locals.user._id}, body, (err, user) => {
         if(err || !user)
-            return res.json(Strings.error.INVALID_USER)
+            return res.json(Strings.INVALID_USER)
         
-        res.json(Strings.error.SUCCEFULY)
+        res.json(Strings.SUCCEFULY)
     })
 }
 
