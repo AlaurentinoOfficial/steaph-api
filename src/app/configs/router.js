@@ -16,4 +16,5 @@ exports.Router = (app) => {
     
     app.route('/environment/:id')
         .put(EnvironmentController.updateEnvById)
+        .delete(EnvironmentController.deleteEnvById)
 }
