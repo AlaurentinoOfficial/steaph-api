@@ -16,19 +16,33 @@ body.get = (req, res) => {
 }
 
 body.add = (req, res) => {
-    var b = {
-        environment: e._id,
-        start: new Date(req.body.start),
-        end: new Date(req.body.end),
-        irraw: req.body.irraw,
-        relay: req.body.relay
-    }
+    EnvironmentSchema.findOne({_id: req.params.env}, (err, e) => {
+        if(err || !e)
+            return res.json(Strings.INVALID_ENVIRONMENT)
 
-    EnvironmentScheduleSchema.create(b, (err, e) => {
+        var b = {
+            environment: e._id,
+            start: new Date(req.body.start),
+            end: new Date(req.body.end),
+            irraw: req.body.irraw,
+            relay: req.body.relay
+        }
+    
+        EnvironmentScheduleSchema.create(b, (err, e) => {
+            if(err)
+                return res.json(Strings.INVALID_ENVIRONMENT_SCHEDULE)
+            
+            return res.json(Strings.SUCCEFULY)
+        })
+    })
+}
+
+body.deleteById = (req, res) => {
+    EnvironmentScheduleSchema.remove({_id: req.params.id}, (err, d) => {
         if(err)
             return res.json(Strings.INVALID_ENVIRONMENT_SCHEDULE)
         
-        return res.json(Strings.SUCCEFULY)
+        res.json(Strings.SUCCEFULY)
     })
 }
 

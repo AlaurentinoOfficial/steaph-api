@@ -21,4 +21,8 @@ exports.Router = (app) => {
     
     app.route('/environment/:id/schedule')
         .get(EnvironmentScheduleController.get)
+        .post(EnvironmentScheduleController.add)
+    
+    app.route('/schedule/:id')
+        .delete(EnvironmentScheduleController.deleteById)
 }
