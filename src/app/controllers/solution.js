@@ -1,8 +1,8 @@
-import * as jwt from "jsonwebtoken";
+import * as jwt from "jsonwebtoken"
 
-import { Server } from "../../server";
-import { SolutionSchema } from "../models/solution";
-import { Strings } from "../configs/strings";
+import { Server } from "../../server"
+import { SolutionSchema } from "../models/solution"
+import { Strings } from "../configs/strings"
 
 var body = {}
 
@@ -26,8 +26,8 @@ body.login = (req, res) => {
             }
             else
                 return res.json(Strings.INVALID_PASSWORD)
-        });
-    });
+        })
+    })
 }
 
 body.password = (req, res) => {

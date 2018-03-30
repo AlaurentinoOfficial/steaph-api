@@ -1,6 +1,6 @@
 var mongoose = require("mongoose")
-var bcrypt = require("bcrypt")
 var relationship = require("mongoose-relationship")
+var bcrypt = require("bcrypt")
 
 let solutionSchema = new mongoose.Schema({
     name: {type: String, required: true, unique: true},
