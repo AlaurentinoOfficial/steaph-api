@@ -1,7 +1,6 @@
 import * as jwt from "jsonwebtoken";
 
 import { Server } from "../../server";
-import { UserSchema } from "../models/user";
 import { SolutionSchema } from "../models/solution";
 import { Strings } from "../configs/strings";
 

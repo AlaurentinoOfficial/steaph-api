@@ -9,4 +9,4 @@ let environmentSchema = new mongoose.Schema({
     schedule: [{type: mongoose.Schema.ObjectId, ref:"EnvironmentSchdule", required: false}]
 });
 environmentSchema.plugin(relationship, { relationshipPathName:'solution' });
-export const EnvironmentSchema = mongoose.model('Environment', environmentSchema);
+exports.EnvironmentSchema = mongoose.model('Environment', environmentSchema);

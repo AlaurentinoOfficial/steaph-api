@@ -50,4 +50,4 @@ solutionSchema.methods.comparePassword = function(pw, cb) {
         cb(null, isMath)
     })
 }
-export const SolutionSchema = mongoose.model('Solution', solutionSchema)
+exports.SolutionSchema = mongoose.model('Solution', solutionSchema)

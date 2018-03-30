@@ -14,6 +14,6 @@ app.set('port', process.env.PORT || 8080)
 var argv = process.argv.slice(2)
 
 Router(app)
-DbConfig(argv.indexOf("--docker") >= 0 ? "mongodb://mongo/CRM" : "mongodb://localhost:27017/CRM")
+DbConfig(argv.indexOf("--docker") >= 0 ? "mongodb://mongo/steaph" : "mongodb://localhost:27017/steaph")
 
 exports.Server = app

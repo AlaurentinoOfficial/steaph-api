@@ -10,4 +10,4 @@ let environmentStatusSchema = new mongoose.Schema({
     gas: {type: Number, required: true}
 });
 environmentStatusSchema.plugin(relationship, { relationshipPathName:'environment' });
-export const EnvironmentStatusSchema = mongoose.model('EnvironmentStatus', environmentStatusSchema);
+exports.EnvironmentStatusSchema = mongoose.model('EnvironmentStatus', environmentStatusSchema);
