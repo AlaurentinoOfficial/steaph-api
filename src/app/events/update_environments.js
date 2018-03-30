@@ -1,5 +1,5 @@
 import * as mqtt from "mqtt";
-import { EnvironmentScheduleSchema } from "../models/Environment";
+import { EnvironmentScheduleSchema } from "../models/environment_schedule";
 import { MongoDB } from "../configs/database";
 
 let updateStatus = (connection, updates) => {
@@ -7,7 +7,7 @@ let updateStatus = (connection, updates) => {
 
     client.on('connect', () => {
         updates.forEach(e => {
-            client.publish('steaph/environments/' + e.environment + "/status",
+            client.publish('steaph/things/' + e.environment + "/status",
             e.status ? "true" : "false", {qos: 1, retain: false});
 
             console.log("> Set status " + e.environment + " = " + e.status);
