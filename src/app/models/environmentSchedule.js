@@ -1,8 +1,8 @@
-import * as mongoose from "mongoose";
-import * as relationship from "mongoose-relationship";
+var mongoose = require("mongoose")
+var relationship = require("mongoose-relationship")
 
 let environmentScheduleSchema = new mongoose.Schema({
-    environment: {type: mongoose.Schema.ObjectId, ref:"Environment", childPath:"schedule"},
+    environment: {type: mongoose.Schema.Types.ObjectId, ref:"Environment", childPath:"schedule"},
     status: {type: Boolean, required: true},
     start: {type: Date, required: true},
     end: {type: Date, required: true}

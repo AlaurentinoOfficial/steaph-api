@@ -17,7 +17,7 @@ function Authenticate(options) {
                 if(er || !u)
                     return res.json(Strings.INVALID_USER)
                 
-                res.locals.user = u
+                res.locals.solution = u
                 next()
             })
         })

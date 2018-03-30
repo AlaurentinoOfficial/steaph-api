@@ -10,7 +10,7 @@ let solutionSchema = new mongoose.Schema({
     status: {type: Boolean, default: false, require: false},
     block: {type: Boolean, default: false, require: false},
     token: {type: String, require: false},
-    environments: [{type: mongoose.Schema.ObjectId, ref:"Environment", required: false}]
+    environments: [{type: mongoose.Schema.Types.ObjectId, ref:"Environment", required: false}]
 })
 
 solutionSchema.pre('save', function(next) {
