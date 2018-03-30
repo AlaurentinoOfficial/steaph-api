@@ -12,7 +12,7 @@ body.get = (req, res) => {
 
 body.addEnv = (req, res) => {
     var body = req.body;
-    body.solution = solution._id
+    body.solution = res.locals.solution._id
     
     EnvironmentSchema.create(body, (err, docs) => {
         if(err) {
@@ -23,6 +23,16 @@ body.addEnv = (req, res) => {
             return;
         }
 
+        res.json(Strings.SUCCEFULY);
+    });
+}
+
+body.updateEnvById = (req, res) => {
+    EnvironmentSchema.findOneAndUpdate({_id: req.params.id, solution: res.locals.solution._id},
+        req.body, {upsert: true}, (err) => {
+        if(err)
+            return res.json(Strings.INVALID_ENVIRONMENT);
+        
         res.json(Strings.SUCCEFULY);
     });
 }

@@ -13,4 +13,7 @@ exports.Router = (app) => {
     app.route('/environment')
         .get(Authenticate({}), EnvironmentController.get)
         .post(Authenticate({}), EnvironmentController.addEnv)
+    
+    app.route('/environment/:id')
+        .put(EnvironmentController.updateEnvById)
 }
