@@ -2,7 +2,7 @@ var mongoose = require("mongoose")
 var bcrypt = require("bcrypt")
 var relationship = require("mongoose-relationship")
 
-let userSchema = new mongoose.Schema({
+let solutionSchema = new mongoose.Schema({
     name: {type: String, required: true, unique: true},
     cnpj: {type: String, required: true, unique: true},
     email: {type: String, required: true, lowercase: true, unique: true},
@@ -12,7 +12,7 @@ let userSchema = new mongoose.Schema({
     token: {type: String, require: false}
 })
 
-userSchema.pre('save', function(next) {
+solutionSchema.pre('save', function(next) {
     let user = this
 
     if(this.isNew) {
@@ -41,7 +41,7 @@ userSchema.pre('save', function(next) {
         return next()
 });
 
-userSchema.methods.comparePassword = function(pw, cb) {
+solutionSchema.methods.comparePassword = function(pw, cb) {
     bcrypt.compare(pw, this.password, (err, isMath) => {
         if(err)
             return cb(err)
@@ -49,4 +49,4 @@ userSchema.methods.comparePassword = function(pw, cb) {
         cb(null, isMath)
     })
 }
-export const UserSchema = mongoose.model('User', userSchema)
+export const SolutionSchema = mongoose.model('Solution', solutionSchema)
