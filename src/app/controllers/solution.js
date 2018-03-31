@@ -20,9 +20,7 @@ body.login = (req, res) => {
                                 data: solution._id
                             }, Server.get('crypt_key'))
     
-                solution.password = null
-                solution.token = token
-                return res.json(solution)
+                return res.json({token: token})
             }
             else
                 return res.json(Strings.INVALID_PASSWORD)

@@ -1,62 +1,72 @@
-import * as mqtt from "mqtt";
-import { EnvironmentScheduleSchema } from "../models/environment_schedule";
-import { MongoDB } from "../configs/database";
+import * as mqtt from "mqtt"
+import { EnvironmentSchema } from "../models/environment"
+import { EnvironmentScheduleSchema } from "../models/environment_schedule"
+import { MongoDB } from "../configs/database"
 
-let updateStatus = (connection, updates) => {
-    var client  = mqtt.connect(connection);
+let UpdateStatus = (connection, updates) => {
+    var client  = mqtt.connect(connection)
 
     client.on('connect', () => {
         updates.forEach(e => {
             client.publish('steaph/things/' + e.environment + "/status",
-            e.status ? "true" : "false", {qos: 1, retain: false});
+            e.status, {qos: 1, retain: false})
+            console.log("Publish> " + e.environment + " -> " + e.status)
+        })
 
-            console.log("> Set status " + e.environment + " = " + e.status);
-        });
-
-        client.end();
-    });
+        client.end()
+    })
 }
 
-exports.UpdateEnvironmentsCron = (connection, delay) => {
-    if(MongoDB) {
-        EnvironmentScheduleSchema.find({}, (err, schedules) => {
-            if(err || schedules.length == 0)
-                return;
+export var UpdateEnvironments = (connection, delay) => {
+    EnvironmentSchema.find({}, (err, env) => {
+        env.schedule.forEach(e => {
+            console.log(checkTime(e))
+        })
+    })
+    EnvironmentScheduleSchema.find({}, (err, schedules) => {
+        if(err || schedules.length == 0) return
 
-            var on = [];
-            var off = [];
-            var now = new Date();
-            let d = new Date(now);
-            d.setHours(now.getHours());
+        var on = []
+        var off = []
 
-            schedules.forEach((s) => {
-                if(d > _baseDate(new Date(s.start))
-                && now <= _baseDate(new Date(s.end))) {
-                    if(on.indexOf(String(s.environment)) == -1)
-                        on.push(String(s.environment));
-                }
-                else {
-                    if(off.indexOf(String(s.environment)) == -1)
-                            off.push(String(s.environment));
-                }
-            });
+        // Get all the times
+        schedules.forEach((s) => {
+            if(checkTime(s)) {
+                if(on.indexOf(String(s.environment)) == -1)
+                    on.push(String(s.environment))
+            }
+            else {
+                if(off.indexOf(String(s.environment)) == -1)
+                        off.push(String(s.environment))
+            }
+        })
 
-            off.forEach((i) => {
-                if(on.indexOf(i) > -1)
-                    off.splice(off.indexOf(i), 1);
-            });
-            for(var i = 0; i < on.length; i++) on[i] = { environment: on[i], status: true };
-            for(var i = 0; i < off.length; i++) off[i] = { environment: off[i], status: false };
+        // Remove the repiters
+        off.forEach((i) => {
+            if(on.indexOf(i) > -1)
+                off.splice(off.indexOf(i), 1)
+        })
 
-            var buffer = on.concat(off);
-            updateStatus(connection, buffer);
-        });
-    }
+        // Convert to obj
+        for(var i = 0; i < on.length; i++)
+            on[i] = { environment: on[i], status: "true" }
 
-    setTimeout(() => {UpdateEnvironmentsCron(delay);}, delay);
+        for(var i = 0; i < off.length; i++)
+            off[i] = { environment: off[i], status: "false" }
+
+        var buffer = on.concat(off)
+        UpdateStatus(connection, buffer)
+
+        setTimeout(() => {UpdateEnvironments(connection, delay)}, delay)
+    })
 }
+
+let checkTime = (time) => {
+    var now = new Date()
+    return now > _baseDate(new Date(s.start)) && now <= _baseDate(new Date(s.end))
+} 
 
 let _baseDate = function(date) {
-    var now = new Date();
-    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(),date.getMilliseconds());
-};
+    var now = new Date()
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(),date.getMilliseconds())
+}

@@ -8,7 +8,7 @@ exports.Authenticate = Authenticate
 
 function Authenticate(options) {
     return function Authenticate(req, res, next) {
-        let token = req.headers["authorization"].replace("CRM ", "")
+        let token = req.headers["authorization"].replace("STEAPH ", "")
 
         jwt.verify(token, Server.get('crypt_key'), (err, result) => {
             if(err || !result) return res.json(Strings.INVALID_TOKEN)

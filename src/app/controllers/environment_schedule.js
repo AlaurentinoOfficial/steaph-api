@@ -1,13 +1,14 @@
 import * as jwt from "jsonwebtoken"
 
 import { Server } from "../../server"
+import { EnvironmentSchema } from "../models/environment"
 import { EnvironmentScheduleSchema } from "../models/environment_schedule"
 import { Strings } from "../configs/strings"
 
 var body = {}
 
 body.get = (req, res) => {
-    EnvironmentScheduleSchema.find({environment: req.params.id, solution: res.locals.solution._id}, (err, doc) => {
+    EnvironmentScheduleSchema.find({environment: req.params.id}, (err, doc) => {
         if(err)
             return res.json(Strings.INVALID_ENVIRONMENT)
         
@@ -16,16 +17,15 @@ body.get = (req, res) => {
 }
 
 body.add = (req, res) => {
-    EnvironmentSchema.findOne({_id: req.params.env}, (err, e) => {
-        if(err || !e)
+    EnvironmentSchema.findOne({_id: req.params.id}, (err, e) => {
+        if(err)
             return res.json(Strings.INVALID_ENVIRONMENT)
 
         var b = {
             environment: e._id,
             start: new Date(req.body.start),
             end: new Date(req.body.end),
-            irraw: req.body.irraw,
-            relay: req.body.relay
+            status: req.body.status
         }
     
         EnvironmentScheduleSchema.create(b, (err, e) => {

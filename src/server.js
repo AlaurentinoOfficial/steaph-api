@@ -4,9 +4,9 @@ var bodyParser = require('body-parser')
 
 import { DbConfig } from './app/config/database'
 import { Router } from './app/configs/router';
-import { UpdateEnvironmentsCron } from './app/events/update_environments';
+import { UpdateEnvironments } from './app/events/update_environments';
+import { SolutionSchema } from './app/models/solution';
 
-app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 app.set('crypt_key', 'dfhads8g3bfosdfs')
@@ -21,12 +21,26 @@ DbConfig(
     ? "mongodb://mongo/steaph"
     : "mongodb://localhost:27017/steaph")
 
-UpdateEnvironmentsCron({
+UpdateEnvironments({
     host: 'm14.cloudmqtt.com',
     port: 18167,
     username: 'feorjysl',
     password: 'iPAiakR2OQUh',
     clientId: 'steaph-api'
-}, 10000)
+}, 5000)
+
+console.log(new Date())
+
+// var body = {
+//     name: "NAVE",
+//     email: "alaurentino.br@gmail.com",
+//     password: "1234567890n"
+// }
+
+// SolutionSchema.create(body, (err, doc) => {
+//     if(err) return
+
+//     console.log("OK!")
+// })
 
 exports.Server = app

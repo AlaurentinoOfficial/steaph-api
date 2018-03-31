@@ -4,12 +4,10 @@ var bcrypt = require("bcrypt")
 
 let solutionSchema = new mongoose.Schema({
     name: {type: String, required: true, unique: true},
-    cnpj: {type: String, required: true, unique: true},
     email: {type: String, required: true, lowercase: true, unique: true},
     password: {type: String, required: true},
     status: {type: Boolean, default: false, require: false},
     block: {type: Boolean, default: false, require: false},
-    token: {type: String, require: false},
     environments: [{type: mongoose.Schema.Types.ObjectId, ref:"Environment", required: false}]
 })
 

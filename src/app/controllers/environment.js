@@ -7,7 +7,12 @@ import { Strings } from "../configs/strings"
 var body = {}
 
 body.get = (req, res) => {
-    res.json(res.locals.solution.environments)
+    EnvironmentSchema.find({solution: res.locals.solution._id}, (err, docs) => {
+        if(err)
+            return res.json([])
+        
+        res.json(docs);
+    })
 }
 
 body.add = (req, res) => {
@@ -28,7 +33,7 @@ body.add = (req, res) => {
 }
 
 body.updateEnvById = (req, res) => {
-    EnvironmentSchema.findOneAndUpdate({_id: req.params.id, solution: res.locals.solution._id},
+    EnvironmentSchema.findOneAndUpdate({_id: req.params.id},
         req.body, {upsert: true}, (err) => {
         if(err)
             return res.json(Strings.INVALID_ENVIRONMENT)

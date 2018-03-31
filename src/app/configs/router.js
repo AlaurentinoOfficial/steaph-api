@@ -16,13 +16,13 @@ exports.Router = (app) => {
         .post(Authenticate({}), EnvironmentController.add)
     
     app.route('/environment/:id')
-        .put(EnvironmentController.updateEnvById)
-        .delete(EnvironmentController.deleteEnvById)
+        .put(Authenticate({}), EnvironmentController.updateEnvById)
+        .delete(Authenticate({}), EnvironmentController.deleteEnvById)
     
     app.route('/environment/:id/schedule')
-        .get(EnvironmentScheduleController.get)
-        .post(EnvironmentScheduleController.add)
+        .get(Authenticate({}), EnvironmentScheduleController.get)
+        .post(Authenticate({}), EnvironmentScheduleController.add)
     
     app.route('/schedule/:id')
-        .delete(EnvironmentScheduleController.deleteById)
+        .delete(Authenticate({}), EnvironmentScheduleController.deleteById)
 }
