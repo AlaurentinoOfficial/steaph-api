@@ -18,50 +18,51 @@ let UpdateStatus = (connection, updates) => {
 }
 
 export var UpdateEnvironments = (connection, delay) => {
-    EnvironmentSchema.find({}, (err, env) => {
-        env.schedule.forEach(e => {
-            console.log(checkTime(e))
+    EnvironmentSchema.find({}, (err, envs) => {
+        EnvironmentScheduleSchema.find({}, (er, schedules) => {
+            if(err || schedules.length == 0) return
+    
+            var on = []
+            var off = []
+    
+            // Get all the schedules
+            schedules.forEach((s) => {
+                envs.forEach(ev => {
+                    if(String(s.environment) == String(ev._id)) {
+                        if(checkTime(s)) {
+                            if(on.indexOf(String(ev.id)) == -1)
+                                on.push(String(ev.id))
+                        }
+                        else {
+                            if(off.indexOf(String(ev.id)) == -1)
+                                    off.push(String(ev.id))
+                        }
+                    }
+                })
+            })
+    
+            // Remove the repiters
+            off.forEach((i) => {
+                if(on.indexOf(i) > -1)
+                    off.splice(off.indexOf(i), 1)
+            })
+    
+            // Convert to obj
+            for(var i = 0; i < on.length; i++)
+                on[i] = { environment: on[i], status: "true" }
+    
+            for(var i = 0; i < off.length; i++)
+                off[i] = { environment: off[i], status: "false" }
+    
+            var buffer = on.concat(off)
+            UpdateStatus(connection, buffer)
+    
+            setTimeout(() => {UpdateEnvironments(connection, delay)}, delay)
         })
-    })
-    EnvironmentScheduleSchema.find({}, (err, schedules) => {
-        if(err || schedules.length == 0) return
-
-        var on = []
-        var off = []
-
-        // Get all the times
-        schedules.forEach((s) => {
-            if(checkTime(s)) {
-                if(on.indexOf(String(s.environment)) == -1)
-                    on.push(String(s.environment))
-            }
-            else {
-                if(off.indexOf(String(s.environment)) == -1)
-                        off.push(String(s.environment))
-            }
-        })
-
-        // Remove the repiters
-        off.forEach((i) => {
-            if(on.indexOf(i) > -1)
-                off.splice(off.indexOf(i), 1)
-        })
-
-        // Convert to obj
-        for(var i = 0; i < on.length; i++)
-            on[i] = { environment: on[i], status: "true" }
-
-        for(var i = 0; i < off.length; i++)
-            off[i] = { environment: off[i], status: "false" }
-
-        var buffer = on.concat(off)
-        UpdateStatus(connection, buffer)
-
-        setTimeout(() => {UpdateEnvironments(connection, delay)}, delay)
     })
 }
 
-let checkTime = (time) => {
+let checkTime = (s) => {
     var now = new Date()
     return now > _baseDate(new Date(s.start)) && now <= _baseDate(new Date(s.end))
 } 

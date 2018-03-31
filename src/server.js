@@ -27,7 +27,7 @@ UpdateEnvironments({
     username: 'feorjysl',
     password: 'iPAiakR2OQUh',
     clientId: 'steaph-api'
-}, 5000)
+}, 10000)
 
 console.log(new Date())
 
