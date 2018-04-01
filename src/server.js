@@ -3,12 +3,14 @@ var app = express()
 var bodyParser = require('body-parser')
 
 import { DbConfig } from './app/config/database'
-import { Router } from './app/configs/router';
-import { UpdateEnvironments } from './app/events/update_environments';
-import { SolutionSchema } from './app/models/solution';
+import { Router } from './app/configs/router'
+import { UpdateEnvironments } from './app/events/update_environments'
+import { SolutionSchema } from './app/models/solution'
+import { AllowCrossDomain } from './app/middlewares/cors';
 
-app.use(bodyParser.urlencoded({'extended':'true'}));
-app.use(bodyParser.json());
+app.use(AllowCrossDomain)
+app.use(bodyParser.urlencoded({'extended':'true'}))
+app.use(bodyParser.json())
 app.set('crypt_key', 'dfhads8g3bfosdfs')
 app.set('port', process.env.PORT || 8080)
 
