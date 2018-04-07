@@ -33,16 +33,4 @@ UpdateEnvironments({
 
 console.log(new Date())
 
-// var body = {
-//     name: "NAVE",
-//     email: "alaurentino.br@gmail.com",
-//     password: "1234567890n"
-// }
-
-// SolutionSchema.create(body, (err, doc) => {
-//     if(err) return
-
-//     console.log("OK!")
-// })
-
 exports.Server = app

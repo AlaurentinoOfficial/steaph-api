@@ -9,7 +9,7 @@ let UpdateStatus = (connection, updates) => {
     client.on('connect', () => {
         updates.forEach(e => {
             client.publish('steaph/things/' + e.environment + "/status",
-            e.status, {qos: 1, retain: false})
+            '{status:' + e.status + ', key: ' + e.key + '}', {qos: 1, retain: false})
             console.log("Publish> " + e.environment + " -> " + e.status)
         })
 
@@ -55,7 +55,7 @@ export var UpdateEnvironments = (connection, delay) => {
                 off[i] = { environment: off[i], status: "false" }
     
             var buffer = on.concat(off)
-            UpdateStatus(connection, buffer)
+            if(buffer.length > 0) UpdateStatus(connection, buffer)
     
             setTimeout(() => {UpdateEnvironments(connection, delay)}, delay)
         })
