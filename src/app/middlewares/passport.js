@@ -13,11 +13,11 @@ function Authenticate(options) {
         jwt.verify(token, Server.get('crypt_key'), (err, result) => {
             if(err || !result) return res.json(Strings.INVALID_TOKEN)
 
-            SolutionSchema.findOne({_id: result.data}, (er, u) => {
-                if(er || !u)
+            SolutionSchema.findOne({_id: result.data}, (er, s) => {
+                if(er || !s)
                     return res.json(Strings.INVALID_USER)
                 
-                res.locals.solution = u
+                res.locals.solution = s
                 next()
             })
         })
