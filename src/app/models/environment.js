@@ -6,6 +6,7 @@ let environmentSchema = new mongoose.Schema({
     name: {type: String, required: true, unique: true},
     id: {type: String, required: true, min: 25, max: 25, unique: true},
     key: {type: String, required: true, min: 25, max: 25, unique: true},
+    status: [{type: mongoose.Schema.ObjectId, ref:"EnvironmentStatus", required: false}],
     schedule: [{type: mongoose.Schema.Types.ObjectId, ref:"EnvironmentSchdule", required: false}]
 });
 environmentSchema.plugin(relationship, { relationshipPathName:'solution' });
