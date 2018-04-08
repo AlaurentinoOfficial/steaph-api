@@ -2,7 +2,6 @@ var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
 
-import * as mqtt from "mqtt"
 import { DbConfig } from './app/config/database'
 import { Router } from './app/configs/router'
 import { UpdateEnvironments } from './app/events/update_environments'
@@ -24,14 +23,6 @@ DbConfig(
     ? "mongodb://mongo/steaph"
     : "mongodb://localhost:27017/steaph")
 
-UpdateEnvironments(mqtt.connect({
-    host: 'm14.cloudmqtt.com',
-    port: 18167,
-    username: 'feorjysl',
-    password: 'iPAiakR2OQUh',
-    clientId: 'steaph'
-}), 15000)
-
-console.log('UTC> ' + new Date())
+console.log(new Date())
 
 exports.Server = app

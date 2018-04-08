@@ -29,14 +29,26 @@ body.login = (req, res) => {
 }
 
 body.password = (req, res) => {
-    var body = {password: req.body.password}
+    var update = {password: req.body.password}
 
-    SolutionSchema.findOneAndUpdate({_id: res.locals.user._id}, body, (err, user) => {
+    SolutionSchema.findOneAndUpdate({_id: res.locals.solution._id}, update, (err, user) => {
         if(err || !user)
             return res.json(Strings.INVALID_USER)
         
         res.json(Strings.SUCCEFULY)
     })
+}
+
+body.get = (req, res) => {
+    let solutionObj = {
+        status: res.locals.solution.status,
+        environments: res.locals.solution.environments,
+        _id: res.locals.solution._id,
+        name: res.locals.solution.name,
+        email: res.locals.solution.email
+    }
+
+    res.json(solutionObj)
 }
 
 exports.SolutionController = body

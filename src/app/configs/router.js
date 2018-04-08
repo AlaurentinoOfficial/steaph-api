@@ -11,6 +11,10 @@ exports.Router = (app) => {
 
     app.route('/login')
         .post(SolutionController.login)
+        .put(Authenticate({}), SolutionController.password)
+
+    app.route('/solution')
+        .get(Authenticate({}), SolutionController.get)
 
     app.route('/environment')
         .get(Authenticate({}), EnvironmentController.get)
