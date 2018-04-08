@@ -11,9 +11,7 @@ exports.Router = (app) => {
 
     app.route('/login')
         .post(SolutionController.login)
-
-    app.route('/login')
-        .post(Authenticate({}), SolutionController.password)
+        .put(Authenticate({}), SolutionController.password)
 
     app.route('/solution')
         .get(Authenticate({}), SolutionController.get)
