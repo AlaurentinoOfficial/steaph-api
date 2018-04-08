@@ -31,7 +31,7 @@ body.login = (req, res) => {
 body.password = (req, res) => {
     var update = {password: req.body.password}
 
-    SolutionSchema.findOneAndUpdate({_id: res.locals.user._id}, update, (err, user) => {
+    SolutionSchema.findOneAndUpdate({_id: res.locals.solution._id}, update, (err, user) => {
         if(err || !user)
             return res.json(Strings.INVALID_USER)
         
