@@ -14,7 +14,7 @@ app.use(bodyParser.json())
 app.set('crypt_key', 'dfhads8g3bfosdfs')
 app.set('port', process.env.PORT || 8080)
 
-var argv = process.argv.slice(2)
+let argv = process.argv.slice(2)
 
 Router(app)
 
@@ -28,9 +28,9 @@ UpdateEnvironments({
     port: 18167,
     username: 'feorjysl',
     password: 'iPAiakR2OQUh',
-    clientId: 'steaph-api'
-}, 5000)
+    clientId: 'steaph'
+}, 15000)
 
-console.log(new Date())
+console.log('UTC> ' + new Date())
 
 exports.Server = app

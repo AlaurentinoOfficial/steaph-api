@@ -6,9 +6,19 @@ services:
       - "3000:3000"
     links:
       - mongo
+      - mqtt
   mongo:
     image: mongo
     volumes:
       - /data/db:/data/db
     ports:
       - "27017:27017"
+  mqtt:
+    image: eclipse-mosquitto
+    volumes:
+      - mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - /mosquitto/data
+      - /mosquitto/log
+    ports:
+      - 1883:1883
+      - 9001:9001

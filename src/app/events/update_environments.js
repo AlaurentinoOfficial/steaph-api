@@ -37,7 +37,7 @@ let UpdateStatus = (connection, updates) => {
             })
         })
 
-        client.end()
+        //client.end()
     })
 }
 
@@ -87,12 +87,12 @@ export var UpdateEnvironments = (connection, delay) => {
 
 // Check to valid if the environment need turn on or turn off
 let _checkTime = (s) => {
-    var now = new Date()
+    let now = new Date()
     return now > _baseDate(new Date(s.start)) && now <= _baseDate(new Date(s.end)) && now.getUTCDay() == s.day
 } 
 
 // Convert the time to just use the hours
 let _baseDate = function(date) {
-    var now = new Date()
+    let now = new Date()
     return new Date(now.getFullYear(), now.getMonth(), now.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(),date.getMilliseconds())
 }
