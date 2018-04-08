@@ -22,7 +22,8 @@ body.add = (req, res) => {
         var b = {
             environment: e._id,
             status: req.body.status,
-            power: req.body.power
+            power: req.body.power,
+            date: new Date()
         }
     
         EnvironmentStatusSchema.create(b, (er, doc) => {

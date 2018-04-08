@@ -3,6 +3,7 @@ var relationship = require("mongoose-relationship")
 
 let environmentStatusSchema = new mongoose.Schema({
     environment: {type: mongoose.Schema.ObjectId, ref:"Environment", childPath:"status"},
+    date: {type: Date, required: true},
     status: {type: Boolean, required: true},
     power: {type: Number, required: true}
 });
