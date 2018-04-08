@@ -29,8 +29,8 @@ UpdateEnvironments({
     username: 'feorjysl',
     password: 'iPAiakR2OQUh',
     clientId: 'steaph-api'
-}, 30000)
+}, 5000)
 
-console.log('UTC> ' + new Date())
+console.log(new Date())
 
 exports.Server = app

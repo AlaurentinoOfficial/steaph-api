@@ -58,8 +58,7 @@ export var UpdateEnvironments = (connection, delay) => {
                                 on.push(String(ev.id))
                         }
                         else {
-                            // Convert the time to just use the hoursif(off.indexOf(String(ev.id)) == -1)
-                                    off.push(String(ev.id))
+                            off.push(String(ev.id))
                         }
                     }
                 })
@@ -80,16 +79,16 @@ export var UpdateEnvironments = (connection, delay) => {
     
             var buffer = on.concat(off)
             if(buffer.length > 0) UpdateStatus(connection, buffer)
-    
-            setTimeout(() => {UpdateEnvironments(connection, delay)}, delay)
         })
+
+        setTimeout(() => {UpdateEnvironments(connection, delay)}, delay)
     })
 }
 
 // Check to valid if the environment need turn on or turn off
 let _checkTime = (s) => {
     var now = new Date()
-    return now > _baseDate(new Date(s.start)) && now <= _baseDate(new Date(s.end))
+    return now > _baseDate(new Date(s.start)) && now <= _baseDate(new Date(s.end)) && now.getUTCDay() == s.day
 } 
 
 // Convert the time to just use the hours

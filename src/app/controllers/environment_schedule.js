@@ -23,7 +23,7 @@ body.add = (req, res) => {
             environment: e._id,
             start: new Date(req.body.start),
             end: new Date(req.body.end),
-            status: req.body.status
+            day: req.body.day
         }
     
         EnvironmentScheduleSchema.create(b, (err, e) => {
