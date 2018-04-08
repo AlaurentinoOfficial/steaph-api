@@ -6,11 +6,17 @@ import { Strings } from "../configs/strings"
 var body = {}
 
 body.get = (req, res) => {
-    EnvironmentScheduleSchema.find({environment: req.params.id}, (err, doc) => {
-        if(err)
+    EnvironmentSchema.findOne({_id: req.params.id}, (err, env) => {
+        if(err || !env)
             return res.json(Strings.INVALID_ENVIRONMENT)
         
-        res.json(doc)
+        
+        EnvironmentScheduleSchema.find({environment: req.params.id}, (err, doc) => {
+            if(err || doc.length == 0)
+                return res.json(Strings.INVALID_ENVIRONMENT)
+            
+            res.json(doc)
+        })
     })
 }
 
