@@ -4,8 +4,8 @@ import { EnvironmentScheduleSchema } from "../models/environment_schedule"
 import { EnvironmentStatusSchema } from "../models/environment_status"
 import { MongoDB } from "../configs/database"
 
-let UpdateStatus = (connection, updates) => {
-    var client  = mqtt.connect(connection)
+let UpdateStatus = (client, updates) => {
+    //var client  = mqtt.connect(connection)
 
     client.on('connect', () => {
         updates.forEach(e => {
@@ -33,6 +33,8 @@ let UpdateStatus = (connection, updates) => {
                     EnvironmentStatusSchema.create(body, (err, ok) => {
                         if(err) return console.error('ERROR> Error to try add a new status!')
                     })
+
+                    return
                 }
             })
         })
