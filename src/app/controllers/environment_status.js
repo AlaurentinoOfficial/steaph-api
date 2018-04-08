@@ -25,9 +25,9 @@ body.add = (req, res) => {
             power: req.body.power
         }
     
-        EnvironmentStatusSchema.create(b, (err, doc) => {
-            if(err)
-                return res.json(Strings.INVALID_ENVIRONMENT_SCHEDULE)
+        EnvironmentStatusSchema.create(b, (er, doc) => {
+            if(er)
+                return res.json(Strings.INVALID_ENVIRONMENT_STATUS)
             
             return res.json(Strings.SUCCEFULY)
         })
@@ -37,7 +37,7 @@ body.add = (req, res) => {
 body.deleteById = (req, res) => {
     EnvironmentStatusSchema.remove({_id: req.params.id}, (err, doc) => {
         if(err)
-            return res.json(Strings.INVALID_ENVIRONMENT_SCHEDULE)
+            return res.json(Strings.INVALID_ENVIRONMENT_STATUS)
         
         res.json(Strings.SUCCEFULY)
     })
