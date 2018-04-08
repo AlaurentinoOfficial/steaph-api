@@ -10,7 +10,7 @@
 
 * Start up Steaph API
 ```
-$ docker-compose up
+$ docker-compose up --build
 ```
 
 ## Development environment

@@ -10,7 +10,6 @@ body.get = (req, res) => {
         if(err || !env)
             return res.json(Strings.INVALID_ENVIRONMENT)
         
-        
         EnvironmentScheduleSchema.find({environment: req.params.id}, (err, doc) => {
             if(err || doc.length == 0)
                 return res.json(Strings.INVALID_ENVIRONMENT)
