@@ -1,6 +1,7 @@
 import * as mqtt from "mqtt"
 import { EnvironmentSchema } from "../models/environment"
 import { EnvironmentScheduleSchema } from "../models/environment_schedule"
+import { EnvironmentStatusSchema } from "../models/environment_status"
 import { MongoDB } from "../configs/database"
 
 let UpdateStatus = (connection, updates) => {
@@ -20,7 +21,18 @@ let UpdateStatus = (connection, updates) => {
         client.on('message', function (topic, message) {
             updates.forEach(e => {
                 if(topic == 'steaph/things/' + e.environment + '/status') {
-                    // Update status JSON.parse(message)
+
+                    let msg = JSON.stringify(message)
+
+                    let body = {
+                        environment: e._id,
+                        status: msg.status,
+                        power: msg.power
+                    }
+
+                    EnvironmentStatusSchema.create(body, (err, ok) => {
+                        if(err) return console.error('ERROR> Error to try add a new status!')
+                    })
                 }
             })
         })
@@ -41,12 +53,12 @@ export var UpdateEnvironments = (connection, delay) => {
             schedules.forEach((s) => {
                 envs.forEach(ev => {
                     if(String(s.environment) == String(ev._id)) {
-                        if(checkTime(s)) {
+                        if(_checkTime(s)) {
                             if(on.indexOf(String(ev.id)) == -1)
                                 on.push(String(ev.id))
                         }
                         else {
-                            if(off.indexOf(String(ev.id)) == -1)
+                            // Convert the time to just use the hoursif(off.indexOf(String(ev.id)) == -1)
                                     off.push(String(ev.id))
                         }
                     }
@@ -74,11 +86,13 @@ export var UpdateEnvironments = (connection, delay) => {
     })
 }
 
-let checkTime = (s) => {
+// Check to valid if the environment need turn on or turn off
+let _checkTime = (s) => {
     var now = new Date()
     return now > _baseDate(new Date(s.start)) && now <= _baseDate(new Date(s.end))
 } 
 
+// Convert the time to just use the hours
 let _baseDate = function(date) {
     var now = new Date()
     return new Date(now.getFullYear(), now.getMonth(), now.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(),date.getMilliseconds())

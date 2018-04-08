@@ -29,7 +29,7 @@ UpdateEnvironments({
     username: 'feorjysl',
     password: 'iPAiakR2OQUh',
     clientId: 'steaph-api'
-}, 10000)
+}, 30000)
 
 console.log('UTC> ' + new Date())
 
