@@ -15,12 +15,12 @@ $ docker-compose up
 
 ## Development environment
 
-* Start up TypeScript Compiler
+* Start up MongoDB Server
 ```
 $ mongod
 ```
 
-* Start up TypeScript Compiler
+* Start up Babel listener
 ```
 $ npm install
 $ npm run babelw
