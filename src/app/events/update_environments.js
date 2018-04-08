@@ -8,9 +8,21 @@ let UpdateStatus = (connection, updates) => {
 
     client.on('connect', () => {
         updates.forEach(e => {
-            client.publish('steaph/things/' + e.environment + "/status",
+            client.publish('steaph/things/' + e.environment + '/setstatus',
             '{status:' + e.status + ', key: ' + e.key + '}', {qos: 1, retain: false})
+
+            client.subscribe('steaph/things/' + e.environment + '/status',
+            '{status:' + e.status + ', key: ' + e.key + '}', {qos: 1, retain: false})
+
             console.log("Publish> " + e.environment + " -> " + e.status)
+        })
+
+        client.on('message', function (topic, message) {
+            updates.forEach(e => {
+                if(topic == 'steaph/things/' + e.environment + '/status') {
+                    // Update status JSON.parse(message)
+                }
+            })
         })
 
         client.end()
