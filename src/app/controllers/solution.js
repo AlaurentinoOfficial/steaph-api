@@ -12,9 +12,7 @@ body.login = (req, res) => {
             return res.json(Strings.INVALID_EMAIL)
 
         solution.comparePassword(req.body.password, (err, isMatch) => {
-            if(isMatch && !err)
-            {
-
+            if(isMatch && !err) {
                 let token = "STEAPH " + jwt.sign({
                                 exp: Math.floor(Date.now() / 1000) + (60 * 60) * 3,
                                 data: solution._id

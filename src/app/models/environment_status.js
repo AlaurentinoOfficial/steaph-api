@@ -5,7 +5,7 @@ let environmentStatusSchema = new mongoose.Schema({
     environment: {type: mongoose.Schema.ObjectId, ref:"Environment", childPath:"status"},
     date: {type: Date, required: true},
     status: {type: Boolean, required: true},
-    power: {type: Number, required: true}
+    power: {type: Number, required: false}
 });
 environmentStatusSchema.plugin(relationship, { relationshipPathName:'environment' });
 export const EnvironmentStatusSchema = mongoose.model('EnvironmentStatus', environmentStatusSchema);
