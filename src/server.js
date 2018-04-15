@@ -29,8 +29,10 @@ UpdateEnvironments({
     username: 'feorjysl',
     password: 'iPAiakR2OQUh',
     clientId: 'steaph'
-}, 15000)
+}, 30000)
 
 console.log(new Date())
+
+// SolutionSchema.create({name: "NAVE", email: "alaurentino.br@gmail.com", password: "1234567890n"}, (err, d) => {if(err) console.log("dsf")})
 
 exports.Server = app

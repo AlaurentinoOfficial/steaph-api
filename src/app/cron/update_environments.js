@@ -5,24 +5,23 @@ import { EnvironmentStatusSchema } from "../models/environment_status"
 import { MongoDB } from "../configs/database"
 
 var client = null
-
 let UpdateStatus = (connection, updates) => {
     client  = mqtt.connect(connection)
 
     client.on('connect', () => {
         updates.forEach(e => {
-            client.publish('steaph/things/' + e.environment.id + '/setstatus',
+            client.publish('steaph/things/' + e.environment.uuid + '/setstatus',
             '{status:' + e.status + ', key: ' + e.environment.key + '}', {qos: 1, retain: false})
 
-            client.subscribe('steaph/things/' + e.environment.id + '/status',
+            client.subscribe('steaph/things/' + e.environment.uuid + '/status',
             '{status:' + e.status + ', key: ' + e.environment.key + '}', {qos: 1, retain: false})
 
-            console.log("Publish> " + e.environment.id + " -> " + e.status)
+            console.log("Publish> " + e.environment.uuid + " -> " + e.status)
         })
 
         client.on('message', function (topic, message) {
             updates.forEach(e => {
-                if(topic == 'steaph/things/' + e.environment.id + '/status') {
+                if(topic == 'steaph/things/' + e.environment.uuid + '/status') {
                     
                     try {
                         let msg = JSON.parse(message.toString())

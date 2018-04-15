@@ -2,7 +2,7 @@ var mongoose = require("mongoose")
 var relationship = require("mongoose-relationship")
 
 let environmentStatusSchema = new mongoose.Schema({
-    environment: {type: mongoose.Schema.ObjectId, ref:"Environment", childPath:"status"},
+    environment: {type: mongoose.Schema.ObjectId, ref:"Environment", childPath:"plotstatus"},
     date: {type: Date, required: true},
     status: {type: Boolean, required: true},
     power: {type: Number, required: false}

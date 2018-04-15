@@ -6,12 +6,12 @@ import { Strings } from "../configs/strings"
 var body = {}
 
 body.get = (req, res) => {
-    EnvironmentSchema.findOne({_id: req.params.id}, (err, env) => {
-        if(err || !env)
-            return res.json(Strings.INVALID_ENVIRONMENT)
+    EnvironmentSchema.findOne({uuid: req.params.uuid}, (err, e) => {
+        if(err || !e)
+            return res.json([])
         
-        EnvironmentScheduleSchema.find({environment: req.params.id}, (err, doc) => {
-            if(err || doc.length == 0)
+        EnvironmentScheduleSchema.find({environment:e._id}, (err, doc) => {
+            if(err)
                 return res.json(Strings.INVALID_ENVIRONMENT)
             
             res.json(doc)
@@ -20,8 +20,8 @@ body.get = (req, res) => {
 }
 
 body.add = (req, res) => {
-    EnvironmentSchema.findOne({_id: req.params.id}, (err, e) => {
-        if(err)
+    EnvironmentSchema.findOne({uuid: req.params.uuid}, (err, e) => {
+        if(err || !e)
             return res.json(Strings.INVALID_ENVIRONMENT)
 
         var b = {
@@ -31,7 +31,7 @@ body.add = (req, res) => {
             day: req.body.day
         }
     
-        EnvironmentScheduleSchema.create(b, (err, e) => {
+        EnvironmentScheduleSchema.create(b, (err, schedule) => {
             if(err)
                 return res.json(Strings.INVALID_ENVIRONMENT_SCHEDULE)
             

@@ -22,7 +22,7 @@ body.add = (req, res) => {
     EnvironmentSchema.create(body, (err, docs) => {
         if(err) {
             if(err.code == 11000)
-                res.json(Strings.ENV_ALREADY_CREATED)
+                res.json(err)
             else
                 res.json(Strings.INVALID_ENVIRONMENT)
             return
@@ -33,7 +33,7 @@ body.add = (req, res) => {
 }
 
 body.updateEnvById = (req, res) => {
-    EnvironmentSchema.findOneAndUpdate({_id: req.params.id},
+    EnvironmentSchema.findOneAndUpdate({uuid: req.params.uuid},
         req.body, {upsert: true}, (err) => {
         if(err)
             return res.json(Strings.INVALID_ENVIRONMENT)
@@ -43,7 +43,7 @@ body.updateEnvById = (req, res) => {
 }
 
 body.deleteEnvById = (req, res) => {
-    EnvironmentSchema.remove({solution: res.locals.solution._id, _id: req.params.id}, (err, d) => {
+    EnvironmentSchema.remove({uuid: req.params.uuid}, (err, d) => {
         if(err)
             return res.json(Strings.INVALID_ENVIRONMENT)
         
