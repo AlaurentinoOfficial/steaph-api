@@ -7,8 +7,8 @@ import { Strings } from "../configs/strings"
 exports.Authenticate = Authenticate
 
 export const Mode = {
-    AUTH = "Auth",
-    ENVIRONMENT = "Environment"
+    AUTH: "Auth",
+    ENVIRONMENT: "Environment"
 }
 
 function Authenticate(options) {

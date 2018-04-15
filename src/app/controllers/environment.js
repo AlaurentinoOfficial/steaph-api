@@ -32,6 +32,15 @@ body.add = (req, res) => {
     })
 }
 
+body.getById = (req, res) => {
+    EnvironmentSchema.findOne({solution: res.locals.solution._id, uuid: req.params.uuid}, (err, docs) => {
+        if(err)
+            return res.json([])
+        
+        res.json(docs);
+    })
+}
+
 body.updateEnvById = (req, res) => {
     EnvironmentSchema.findOneAndUpdate({uuid: req.params.uuid},
         req.body, {upsert: true}, (err) => {

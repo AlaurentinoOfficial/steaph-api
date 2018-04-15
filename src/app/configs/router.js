@@ -21,6 +21,7 @@ exports.Router = (app) => {
         .post(Authenticate({}), EnvironmentController.add)
     
     app.route('/environment/:uuid')
+        .get(Authenticate({}), EnvironmentController.getById)
         .put(Authenticate({}), EnvironmentController.updateEnvById)
         .delete(Authenticate({}), EnvironmentController.deleteEnvById)
     
