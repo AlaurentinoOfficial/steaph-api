@@ -1,13 +1,13 @@
 import * as jwt from "jsonwebtoken"
 
 import { Server } from "../../server"
-import { SolutionSchema } from "../models/solution"
+import { UserSchema } from "../models/user";
 import { Strings } from "../configs/strings"
 
 var body = {}
 
 body.login = (req, res) => {
-    SolutionSchema.findOne({email: req.body.email}, (err, solution) => {
+    UserSchema.findOne({email: req.body.email}, (err, solution) => {
         if(err || !solution)
             return res.json(Strings.INVALID_EMAIL)
 
@@ -29,7 +29,7 @@ body.login = (req, res) => {
 body.password = (req, res) => {
     var update = {password: req.body.password}
 
-    SolutionSchema.findOneAndUpdate({_id: res.locals.solution._id}, update, (err, user) => {
+    UserSchema.findOneAndUpdate({_id: res.locals.solution._id}, update, (err, user) => {
         if(err || !user)
             return res.json(Strings.INVALID_USER)
         
@@ -38,15 +38,15 @@ body.password = (req, res) => {
 }
 
 body.get = (req, res) => {
-    let solutionObj = {
-        status: res.locals.solution.status,
-        environments: res.locals.solution.environments,
-        _id: res.locals.solution._id,
-        name: res.locals.solution.name,
-        email: res.locals.solution.email
+    let user = {
+        solution: res.locals.user.solution,
+        name: res.locals.user.name,
+        email: res.locals.user.email,
+        level: res.locals.user.level,
+        status: res.locals.user.status
     }
 
-    res.json(solutionObj)
+    res.json(user)
 }
 
-exports.SolutionController = body
+exports.UserController = body

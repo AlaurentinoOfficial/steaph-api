@@ -7,7 +7,7 @@ import { Strings } from "../configs/strings"
 var body = {}
 
 body.get = (req, res) => {
-    EnvironmentSchema.findOne({_id: req.params.id}, (err, env) => {
+    EnvironmentSchema.findOne({_id: req.params.id, solution: res.locals.solution._id}, (err, env) => {
         if(err)
             return res.json(Strings.INVALID_ENVIRONMENT)
         

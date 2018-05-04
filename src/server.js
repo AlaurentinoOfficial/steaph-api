@@ -5,8 +5,7 @@ var bodyParser = require('body-parser')
 import { DbConfig } from './app/config/database'
 import { Router } from './app/configs/router'
 import { UpdateEnvironments } from './app/cron/update_environments'
-import { SolutionSchema } from './app/models/solution'
-import { AllowCrossDomain } from './app/middlewares/cors';
+import { AllowCrossDomain } from './app/middlewares/cors'
 
 app.use(AllowCrossDomain)
 app.use(bodyParser.urlencoded({'extended':'true'}))
@@ -32,7 +31,5 @@ UpdateEnvironments({
 }, 30000)
 
 console.log(new Date())
-
-// SolutionSchema.create({name: "NAVE", email: "alaurentino.br@gmail.com", password: "1234567890n"}, (err, d) => {if(err) console.log("dsf")})
 
 exports.Server = app

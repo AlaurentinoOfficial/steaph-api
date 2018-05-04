@@ -4,48 +4,11 @@ var bcrypt = require("bcrypt")
 
 let solutionSchema = new mongoose.Schema({
     name: {type: String, required: true, unique: true},
-    email: {type: String, required: true, lowercase: true, unique: true},
-    password: {type: String, required: true},
     status: {type: Boolean, default: false, require: false},
-    block: {type: Boolean, default: false, require: false},
+    cpf: {type: String, min: 11, max: 11, required: true},
+    cnpj: {type: String, min: 12, max: 14, required: true},
+    type: {type: String, enum: ["physical", "legal"], required: true},
+    users: [{type: mongoose.Schema.Types.ObjectId, ref:"User", required: false}],
     environments: [{type: mongoose.Schema.Types.ObjectId, ref:"Environment", required: false}]
 })
-
-solutionSchema.pre('save', function(next) {
-    let user = this
-
-    if(this.isNew) {
-        user.block = false
-        user.status = false
-    }
-
-    if(this.isModified('password'))
-        user.status = true
-
-    if(this.isModified('password') || this.isNew) {
-        bcrypt.genSalt(10, (err, salt) => {
-            if(err)
-                return next(err)
-
-            bcrypt.hash(user.password, salt, (err, hash) => {
-                if(err)
-                    return next(err)
-                
-                user.password = hash
-                next()
-            });
-        });
-    }
-    else
-        return next()
-});
-
-solutionSchema.methods.comparePassword = function(pw, cb) {
-    bcrypt.compare(pw, this.password, (err, isMath) => {
-        if(err)
-            return cb(err)
-
-        cb(null, isMath)
-    })
-}
 exports.SolutionSchema = mongoose.model('Solution', solutionSchema)

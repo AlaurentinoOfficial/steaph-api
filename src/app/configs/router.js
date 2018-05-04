@@ -2,7 +2,7 @@ import * as jwt from "jsonwebtoken"
 
 import { Server } from "../../server"
 import { Authenticate } from "../middlewares/passport"
-import { SolutionController } from "../controllers/solution"
+import { UserController } from "../controllers/user"
 import { EnvironmentController } from "../controllers/environment"
 import { EnvironmentScheduleController } from "../controllers/environment_schedule"
 import { EnvironmentStatusController } from "../controllers/environment_status";
@@ -10,11 +10,11 @@ import { EnvironmentStatusController } from "../controllers/environment_status";
 exports.Router = (app) => {
 
     app.route('/login')
-        .post(SolutionController.login)
-        .put(Authenticate({}), SolutionController.password)
+        .post(UserController.login)
+        .put(Authenticate({}), UserController.password)
 
     app.route('/solution')
-        .get(Authenticate({}), SolutionController.get)
+        .get(Authenticate({}), UserController.get)
 
     app.route('/environment')
         .get(Authenticate({}), EnvironmentController.get)
