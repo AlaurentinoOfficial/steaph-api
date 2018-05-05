@@ -10,24 +10,24 @@ DbConfig(
     : "mongodb://localhost:27017/steaph")
 
 
-let sol = {
+let solutionBody = {
     name: "NAVE",
     cpf: "12345678910",
     cnpj: "12345678910056",
     type: "legal",
 }
-SolutionSchema.create(sol, (er, s) => {
-    if(er || !s)
+SolutionSchema.create(solutionBody, (er, solution) => {
+    if(er || !solution)
         return console.log("Invalid solution\n\n" + er)
     
-    let user = {
-        solution: s._id,
+    let userBody = {
+        solution: solution._id,
         name: "Anderson Laurentino",
         email: "alaurentino.br@gmail.com",
         password: "1234567890n",
         level: "admin"
     }
-    UserSchema.create(user, (err, u) => {
+    UserSchema.create(userBody, (err, user) => {
         if(err || !u)
             return console.log("Invalid user\n\n" + err)
         

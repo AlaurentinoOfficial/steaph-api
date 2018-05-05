@@ -2,7 +2,7 @@ var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
 
-import { DbConfig } from './app/config/database'
+import { DbConfig } from './app/configs/database'
 import { Router } from './app/configs/router'
 import { UpdateEnvironments } from './app/cron/update_environments'
 import { AllowCrossDomain } from './app/middlewares/cors'
