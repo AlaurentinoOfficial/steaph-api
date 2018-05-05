@@ -22,7 +22,7 @@ body.add = (req, res) => {
     EnvironmentSchema.create(body, (err, docs) => {
         if(err) {
             if(err.code == 11000)
-                res.json(err)
+                res.json(Strings.ENV_ALREADY_CREATED)
             else
                 res.json(Strings.INVALID_ENVIRONMENT)
             return

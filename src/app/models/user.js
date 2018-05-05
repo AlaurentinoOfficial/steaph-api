@@ -1,5 +1,6 @@
 var mongoose = require("mongoose")
 var relationship = require("mongoose-relationship")
+var bcrypt = require("bcrypt")
 
 let userSchema = new mongoose.Schema({
     solution: {type: mongoose.Schema.Types.ObjectId, ref:"Solution", childPath:"users", required: true},
@@ -7,15 +8,11 @@ let userSchema = new mongoose.Schema({
     email: {type: String, required: true, lowercase: true, unique: true},
     password: {type: String, min: 6, max: 25, required: true},
     level: {type: String, enum: ["admin", "viewer"], default: "admin", required: true},
-    status: {type: Boolean, default: false, require: false}
+    status: {type: Boolean, require: true}
 });
 
 userSchema.pre('save', function(next) {
     let user = this
-
-    if(this.isNew) {
-        user.status = true
-    }
 
     if(this.isModified('password') || this.isNew) {
         bcrypt.genSalt(10, (err, salt) => {

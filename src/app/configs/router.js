@@ -13,7 +13,7 @@ exports.Router = (app) => {
         .post(UserController.login)
         .put(Authenticate({}), UserController.password)
 
-    app.route('/solution')
+    app.route('/user')
         .get(Authenticate({}), UserController.get)
 
     app.route('/environment')
