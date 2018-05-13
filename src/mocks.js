@@ -1,4 +1,4 @@
-import { DbConfig } from './app/config/database'
+import { DbConfig } from './app/configs/database'
 import { SolutionSchema } from './app/models/solution'
 import { UserSchema } from './app/models/user';
 
