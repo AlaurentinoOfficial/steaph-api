@@ -2,6 +2,7 @@ import * as jwt from "jsonwebtoken"
 
 import { Server } from "../../server"
 import { EnvironmentSchema } from "../models/environment"
+import { EnvironmentScheduleSchema } from "../models/environment_schedule"
 import { Strings } from "../configs/strings"
 
 var body = {}
@@ -36,6 +37,21 @@ body.getById = (req, res) => {
     EnvironmentSchema.findOne({solution: res.locals.solution._id, uuid: req.params.uuid}, (err, docs) => {
         if(err)
             return res.json([])
+            
+        EnvironmentScheduleSchema.find({environment: docs._id}, (er, schedules) => {
+            if(er || !schedules)
+                return
+            
+            var status = false
+            
+            schedules.forEach(s => {
+                if(_checkTime(s))
+                    status = true
+            })
+            
+            docs.status = status
+            docs.save()
+        })
         
         res.json(docs);
     })
@@ -61,3 +77,15 @@ body.deleteEnvById = (req, res) => {
 }
 
 exports.EnvironmentController = body
+
+// Check to valid if the environment need turn on or turn off
+let _checkTime = (s) => {
+    let now = new Date()
+    return now >= _baseDate(new Date(s.start)) && now < _baseDate(new Date(s.end)) && now.getUTCDay() == s.day
+} 
+
+// Convert the time to just use the hours
+let _baseDate = function(date) {
+    let now = new Date()
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(),date.getMilliseconds())
+}

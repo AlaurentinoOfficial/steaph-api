@@ -28,7 +28,7 @@ UpdateEnvironments({
     username: 'feorjysl',
     password: 'iPAiakR2OQUh',
     clientId: 'steaph'
-}, 30000)
+}, 10000)
 
 console.log(new Date())
 

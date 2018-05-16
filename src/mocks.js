@@ -28,7 +28,7 @@ SolutionSchema.create(solutionBody, (er, solution) => {
         level: "admin"
     }
     UserSchema.create(userBody, (err, user) => {
-        if(err || !u)
+        if(err || !user)
             return console.log("Invalid user\n\n" + err)
         
         console.log("User added!")
