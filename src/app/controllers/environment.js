@@ -39,9 +39,6 @@ body.getById = (req, res) => {
             return res.json([])
             
         EnvironmentScheduleSchema.find({environment: docs._id}, (er, schedules) => {
-            if(er || !schedules)
-                return
-            
             var status = false
             
             schedules.forEach(s => {

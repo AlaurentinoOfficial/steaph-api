@@ -1,5 +1,6 @@
 var mongoose = require("mongoose")
 var relationship = require("mongoose-relationship")
+import { EnvironmentScheduleSchema } from "../models/environment_schedule"
 
 let environmentSchema = new mongoose.Schema({
     solution: {type: mongoose.Schema.Types.ObjectId, ref:"Solution", childPath:"environments", required: true},
@@ -10,5 +11,6 @@ let environmentSchema = new mongoose.Schema({
     plotstatus: [{type: mongoose.Schema.ObjectId, ref:"EnvironmentStatus", required: false}],
     schedule: [{type: mongoose.Schema.Types.ObjectId, ref:"EnvironmentSchdule", required: false}]
 });
+
 environmentSchema.plugin(relationship, { relationshipPathName:'solution' });
 exports.EnvironmentSchema = mongoose.model('Environment', environmentSchema);
