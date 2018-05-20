@@ -12,8 +12,7 @@ DbConfig(
 
 let solutionBody = {
     name: "NAVE",
-    cpf: "12345678910",
-    cnpj: "12345678910056",
+    cpfcnpj: "12345678910056",
     type: "legal",
 }
 SolutionSchema.create(solutionBody, (er, solution) => {
