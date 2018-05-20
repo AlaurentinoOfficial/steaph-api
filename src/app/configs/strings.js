@@ -10,6 +10,7 @@ exports.Strings = {
     SUCCEFULY: {code: 9, message: "Succefuly"},
     ENV_ALREADY_CREATED: {code: 10, message: "Environment already created!"},
     INVALID_ENVIRONMENT: {code: 11, message: "Invalid environment!"},
+    INVALID_ENVIRONMENT_MODULE: {code: 12, message: "Invalid module!"},
     INVALID_ENVIRONMENT_SCHEDULE: {code: 12, message: "Invalid schedule!"},
     INVALID_ENVIRONMENT_STATUS: {code: 12, message: "Invalid status!"}
 }
