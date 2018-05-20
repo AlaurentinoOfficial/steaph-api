@@ -22,8 +22,8 @@ SolutionSchema.create(solutionBody, (er, solution) => {
     
     let userBody = {
         solution: solution._id,
-        name: "Anderson Laurentino",
-        email: "alaurentino.br@gmail.com",
+        name: "Steaph - Smart Energy",
+        email: "steaph.contact@gmail.com",
         password: "1234567890n",
         level: "admin"
     }
