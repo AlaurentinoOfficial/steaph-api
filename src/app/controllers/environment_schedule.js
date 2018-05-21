@@ -6,7 +6,7 @@ import { Strings } from "../configs/strings"
 var body = {}
 
 body.get = (req, res) => {
-    EnvironmentSchema.findOne({_id: req.params.id}, (err, e) => {
+    EnvironmentSchema.findOne({_id: req.params.id, solution: res.locals.solution._id}, (err, e) => {
         if(err || !e)
             return res.json([])
         
@@ -20,7 +20,7 @@ body.get = (req, res) => {
 }
 
 body.add = (req, res) => {
-    EnvironmentSchema.findOne({_id: req.params.id}, (err, e) => {
+    EnvironmentSchema.findOne({_id: req.params.id, solution: res.locals.solution._id}, (err, e) => {
         if(err || !e)
             return res.json(Strings.INVALID_ENVIRONMENT)
 
@@ -41,11 +41,18 @@ body.add = (req, res) => {
 }
 
 body.deleteById = (req, res) => {
-    EnvironmentScheduleSchema.remove({_id: req.params.id}, (err, d) => {
-        if(err)
-            return res.json(Strings.INVALID_ENVIRONMENT_SCHEDULE)
-        
-        res.json(Strings.SUCCEFULY)
+    EnvironmentSchema.findOne({_id: req.params.id, solution: res.locals.solution._id}, (err, e) => {
+        if(err || !e)
+            return res.json([])
+
+        if(e.schedule.indexOf(req.params.id) != -1) {
+            EnvironmentScheduleSchema.remove({_id: req.params.id}, (err, d) => {
+                if(err)
+                    return res.json(Strings.INVALID_ENVIRONMENT_SCHEDULE)
+                
+                res.json(Strings.SUCCEFULY)
+            })
+        }
     })
 }
 
