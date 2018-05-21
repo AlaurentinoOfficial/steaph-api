@@ -6,6 +6,7 @@ import { UserController } from "../controllers/user"
 import { EnvironmentController } from "../controllers/environment"
 import { EnvironmentScheduleController } from "../controllers/environment_schedule"
 import { EnvironmentStatusController } from "../controllers/environment_status";
+import { SolutionController } from "../controllers/solution";
 
 exports.Router = (app) => {
 
@@ -15,6 +16,9 @@ exports.Router = (app) => {
 
     app.route('/user')
         .get(Authenticate({}), UserController.get)
+
+    app.route('/solution')
+        .get(Authenticate({}), SolutionController.get)
 
     app.route('/environment')
         .get(Authenticate({}), EnvironmentController.get)

@@ -30,16 +30,5 @@ function Authenticate(options) {
                 })
             })
         }
-        else if(options.mode === Mode.ENVIRONMENT) {
-            EnvironmentSchema.findOne({_id: req.params.id}, (err, env) => {
-                if(err || !env)
-                    return res.json(Strings.INVALID_ENVIRONMENT)
-            
-                res.locals.env = env
-                next()
-            })
-        }
-        else 
-            next()
     } 
 }
