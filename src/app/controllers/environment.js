@@ -34,7 +34,7 @@ body.add = (req, res) => {
 }
 
 body.getById = (req, res) => {
-    EnvironmentSchema.findOne({solution: res.locals.solution._id, uuid: req.params.uuid}, (err, docs) => {
+    EnvironmentSchema.findOne({solution: res.locals.solution._id, _id: req.params.id}, (err, docs) => {
         if(err)
             return res.json([])
             
@@ -55,7 +55,7 @@ body.getById = (req, res) => {
 }
 
 body.updateEnvById = (req, res) => {
-    EnvironmentSchema.findOneAndUpdate({uuid: req.params.uuid},
+    EnvironmentSchema.findOneAndUpdate({_id: req.params.id},
         req.body, {upsert: true}, (err) => {
         if(err)
             return res.json(Strings.INVALID_ENVIRONMENT)
@@ -65,7 +65,7 @@ body.updateEnvById = (req, res) => {
 }
 
 body.deleteEnvById = (req, res) => {
-    EnvironmentSchema.remove({uuid: req.params.uuid}, (err, d) => {
+    EnvironmentSchema.remove({_id: req.params.id}, (err, d) => {
         if(err)
             return res.json(Strings.INVALID_ENVIRONMENT)
         
@@ -74,15 +74,3 @@ body.deleteEnvById = (req, res) => {
 }
 
 exports.EnvironmentController = body
-
-// Check to valid if the environment need turn on or turn off
-let _checkTime = (s) => {
-    let now = new Date()
-    return now >= _baseDate(new Date(s.start)) && now < _baseDate(new Date(s.end)) && now.getUTCDay() == s.day
-} 
-
-// Convert the time to just use the hours
-let _baseDate = function(date) {
-    let now = new Date()
-    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(),date.getMilliseconds())
-}
