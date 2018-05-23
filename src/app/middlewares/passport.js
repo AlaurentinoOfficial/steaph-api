@@ -15,7 +15,7 @@ export const Mode = {
 function Authenticate(options) {
     return function Authenticate(req, res, next) {
         if(options.mode === Mode.AUTH || options.mode === undefined) {
-            let token = req.headers["authorization"].replace("STEAPH ", "")
+            let token = req.headers["authorization"]
 
             jwt.verify(token, Server.get('crypt_key'), (err, result) => {
                 if(err || !result) return res.json(Strings.INVALID_TOKEN)

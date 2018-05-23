@@ -13,7 +13,7 @@ body.login = (req, res) => {
 
         solution.comparePassword(req.body.password, (err, isMatch) => {
             if(isMatch && !err) {
-                let token = "STEAPH " + jwt.sign({
+                let token = jwt.sign({
                                 exp: Math.floor(Date.now() / 1000) + (60 * 60) * 3,
                                 data: solution._id
                             }, Server.get('crypt_key'))
