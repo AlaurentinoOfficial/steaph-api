@@ -1,6 +1,6 @@
 version: "2"
 services:
-  steaphapi:
+  api:
     build: .
     ports:
       - "8080:8080"
