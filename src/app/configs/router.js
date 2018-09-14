@@ -5,8 +5,9 @@ import { Authenticate } from "../middlewares/passport"
 import { UserController } from "../controllers/user"
 import { EnvironmentController } from "../controllers/environment"
 import { EnvironmentScheduleController } from "../controllers/environment_schedule"
-import { EnvironmentStatusController } from "../controllers/environment_status";
-import { SolutionController } from "../controllers/solution";
+import { EnvironmentStatusController } from "../controllers/environment_status"
+import { EnvironmentModuleController } from "../controllers/environment_module"
+import { SolutionController } from "../controllers/solution"
 
 exports.Router = (app) => {
 
@@ -34,6 +35,7 @@ exports.Router = (app) => {
         .post(Authenticate({}), EnvironmentScheduleController.add)
         
     app.route('/schedule/:id')
+        .put(Authenticate({}), EnvironmentScheduleController.updateById)
         .delete(Authenticate({}), EnvironmentScheduleController.deleteById)
 
     app.route('/environment/:id/status')
@@ -42,4 +44,12 @@ exports.Router = (app) => {
 
     app.route('/status/:id')
         .delete(Authenticate({}), EnvironmentStatusController.deleteById)
+    
+    app.route('/environment/:id/module')
+        .get(Authenticate({}), EnvironmentModuleController.get)
+        .post(Authenticate({}), EnvironmentModuleController.add)
+        
+    app.route('/module/:id')
+        .put(Authenticate({}), EnvironmentModuleController.updateById)
+        .delete(Authenticate({}), EnvironmentModuleController.deleteById)
 }

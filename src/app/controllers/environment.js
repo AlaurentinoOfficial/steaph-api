@@ -1,6 +1,3 @@
-import * as jwt from "jsonwebtoken"
-
-import { Server } from "../../server"
 import { EnvironmentSchema } from "../models/environment"
 import { EnvironmentScheduleSchema } from "../models/environment_schedule"
 import { Strings } from "../configs/strings"

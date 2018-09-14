@@ -1,4 +1,3 @@
-import { Server } from "../../server"
 import { EnvironmentSchema } from "../models/environment"
 import { EnvironmentScheduleSchema } from "../models/environment_schedule"
 import { Strings } from "../configs/strings"
@@ -45,16 +44,47 @@ body.deleteById = (req, res) => {
         if(err || !e)
             return res.json([])
 
-        if(e.schedule.indexOf(req.params.id) != -1) {
-            EnvironmentScheduleSchema.remove({_id: req.params.id}, (err, d) => {
-                if(err)
-                    return res.json(Strings.INVALID_ENVIRONMENT_SCHEDULE)
-                
-                res.json(Strings.SUCCEFULY)
-            })
-        }
+        EnvironmentScheduleSchema.remove({_id: req.params.id}, (err, d) => {
+            if(err)
+                return res.json(Strings.INVALID_ENVIRONMENT_SCHEDULE)
+            
+            res.json(Strings.SUCCEFULY)
+        })
     })
 }
 
+body.updateById = (req, res) => {
+    EnvironmentSchema.findOne({_id: req.params.id, solution: res.locals.solution._id}, (err, e) => {
+        if(err || !e)
+            return res.json([])
+
+        var b = {
+            start: new Date(req.body.start),
+            end: new Date(req.body.end),
+            day: req.body.day
+        }
+
+        EnvironmentScheduleSchema.findOneAndUpdate({_id: req.params.id}, b, {upsert: true}, (err, d) => {
+            if(err)
+                return res.json(Strings.INVALID_ENVIRONMENT_SCHEDULE)
+            
+            res.json(Strings.SUCCEFULY)
+        })
+    })
+}
+
+body.deleteById = (req, res) => {
+    EnvironmentSchema.findOne({_id: req.params.id, solution: res.locals.solution._id}, (err, e) => {
+        if(err || !e)
+            return res.json([])
+
+        EnvironmentScheduleSchema.remove({_id: req.params.id}, (err, d) => {
+            if(err)
+                return res.json(Strings.INVALID_ENVIRONMENT_SCHEDULE)
+            
+            res.json(Strings.SUCCEFULY)
+        })
+    })
+}
 
 exports.EnvironmentScheduleController = body
