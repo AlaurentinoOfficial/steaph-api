@@ -1,6 +1,6 @@
 version: "2"
 services:
-  api:
+  sga:
     build: .
     ports:
       - "8080:8080"
