@@ -6,7 +6,7 @@ import { UserController } from "../controllers/user"
 import { EnvironmentController } from "../controllers/environment"
 import { EnvironmentScheduleController } from "../controllers/environment_schedule"
 import { EnvironmentStatusController } from "../controllers/environment_status"
-import { EnvironmentModuleController } from "../controllers/environment_module"
+import { ModuleController } from "../controllers/module"
 import { SolutionController } from "../controllers/solution"
 
 exports.Router = (app) => {
@@ -45,11 +45,11 @@ exports.Router = (app) => {
     app.route('/status/:id')
         .delete(Authenticate({}), EnvironmentStatusController.deleteById)
     
-    app.route('/environment/:id/module')
-        .get(Authenticate({}), EnvironmentModuleController.get)
-        .post(Authenticate({}), EnvironmentModuleController.add)
+    app.route('/module')
+        .get(Authenticate({}), ModuleController.get)
+        .post(Authenticate({}), ModuleController.add)
         
     app.route('/module/:id')
-        .put(Authenticate({}), EnvironmentModuleController.updateById)
-        .delete(Authenticate({}), EnvironmentModuleController.deleteById)
+        .put(Authenticate({}), ModuleController.updateById)
+        .delete(Authenticate({}), ModuleController.deleteById)
 }
