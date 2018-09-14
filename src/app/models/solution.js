@@ -2,7 +2,7 @@ var mongoose = require("mongoose")
 var relationship = require("mongoose-relationship")
 
 let solutionSchema = new mongoose.Schema({
-    name: {type: String, required: true, unique: true},
+    name: {type: String, required: true},
     status: {type: Boolean, default: true, require: false},
     cpf_cnpj: {type: String, required: true},
     type: {type: String, enum: ["physical", "legal"], required: true},
