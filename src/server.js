@@ -13,6 +13,6 @@ app.set('crypt_key', 'dfhads8g3bfosdfs')
 app.set('port', process.env.PORT || 8080)
 
 Router(app)
-DbConfig("mongodb://steaph:sadjkfhuwojkdls@localhost:27017/steaph")
+DbConfig("mongodb://localhost:27017/steaph")
 
 exports.Server = app

@@ -9,7 +9,7 @@ let userSchema = new mongoose.Schema({
     password: {type: String, min: 6, max: 25, required: true},
     level: {type: String, enum: ["admin", "viewer"], default: "admin", required: true},
     status: {type: Boolean, require: true}
-});
+})
 
 userSchema.pre('save', function(next) {
     let user = this
@@ -25,12 +25,12 @@ userSchema.pre('save', function(next) {
                 
                 user.password = hash
                 next()
-            });
-        });
+            })
+        })
     }
     else
         return next()
-});
+})
 
 userSchema.methods.comparePassword = function(pw, cb) {
     bcrypt.compare(pw, this.password, (err, isMath) => {
@@ -41,5 +41,5 @@ userSchema.methods.comparePassword = function(pw, cb) {
     })
 }
 
-userSchema.plugin(relationship, { relationshipPathName:'solution' });
-exports.UserSchema = mongoose.model('User', userSchema);
+userSchema.plugin(relationship, { relationshipPathName:'solution' })
+exports.UserSchema = mongoose.model('User', userSchema)

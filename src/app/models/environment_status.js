@@ -11,5 +11,6 @@ let environmentStatusSchema = new mongoose.Schema({
     external_temperature: {type: Number, required: false},
     luminosity: {type: Number, required: false}
 });
+
 environmentStatusSchema.plugin(relationship, { relationshipPathName:'environment' });
 export const EnvironmentStatusSchema = mongoose.model('EnvironmentStatus', environmentStatusSchema);

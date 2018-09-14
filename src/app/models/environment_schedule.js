@@ -7,5 +7,6 @@ let environmentScheduleSchema = new mongoose.Schema({
     end: {type: Date, required: true},
     day: {type: Number, min: 0, max: 6, required: true}
 });
+
 environmentScheduleSchema.plugin(relationship, { relationshipPathName:'environment' });
 exports.EnvironmentScheduleSchema = mongoose.model('EnvironmentSchedule', environmentScheduleSchema);
