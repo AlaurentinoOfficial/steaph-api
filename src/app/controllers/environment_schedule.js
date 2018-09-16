@@ -5,17 +5,27 @@ import { Strings } from "../configs/strings"
 var body = {}
 
 body.get = (req, res) => {
-    EnvironmentSchema.findOne({_id: req.params.id, solution: res.locals.solution._id}, (err, e) => {
-        if(err || !e)
-            return res.json([])
-        
-        EnvironmentScheduleSchema.find({environment:e._id}, (err, doc) => {
+    if(res.locals.solution) {
+        EnvironmentSchema.findOne({_id: req.params.id, solution: res.locals.solution._id}, (err, e) => {
+            if(err || !e)
+                return res.json([])
+            
+            EnvironmentScheduleSchema.find({environment:e._id}, (err, doc) => {
+                if(err)
+                    return res.json(Strings.INVALID_ENVIRONMENT)
+                
+                res.json(doc)
+            })
+        })
+    }
+    else {
+        EnvironmentScheduleSchema.find({}, (err, doc) => {
             if(err)
                 return res.json(Strings.INVALID_ENVIRONMENT)
             
             res.json(doc)
         })
-    })
+    }
 }
 
 body.add = (req, res) => {

@@ -1,13 +1,14 @@
 import * as jwt from "jsonwebtoken"
 
 import { Server } from "../../server"
-import { Authenticate } from "../middlewares/passport"
+import { Authenticate, Mode } from "../middlewares/passport"
 import { UserController } from "../controllers/user"
 import { EnvironmentController } from "../controllers/environment"
 import { EnvironmentScheduleController } from "../controllers/environment_schedule"
 import { EnvironmentStatusController } from "../controllers/environment_status"
 import { ModuleController } from "../controllers/module"
 import { SolutionController } from "../controllers/solution"
+import { LocalDomain } from '../middlewares/cors'
 
 exports.Router = (app) => {
 
@@ -24,6 +25,9 @@ exports.Router = (app) => {
     app.route('/environment')
         .get(Authenticate({}), EnvironmentController.get)
         .post(Authenticate({}), EnvironmentController.add)
+
+    app.route('/local/environment')
+        .get(LocalDomain, Authenticate({mode: "LocalServer"}), EnvironmentController.get)
     
     app.route('/environment/:id')
         .get(Authenticate({}), EnvironmentController.getById)
@@ -33,6 +37,9 @@ exports.Router = (app) => {
     app.route('/environment/:id/schedule')
         .get(Authenticate({}), EnvironmentScheduleController.get)
         .post(Authenticate({}), EnvironmentScheduleController.add)
+    
+    app.route('/local/schedule')
+        .get(LocalDomain, Authenticate({mode: "LocalServer"}), EnvironmentController.get)
         
     app.route('/schedule/:id')
         .put(Authenticate({}), EnvironmentScheduleController.updateById)

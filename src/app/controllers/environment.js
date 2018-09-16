@@ -5,7 +5,7 @@ import { Strings } from "../configs/strings"
 var body = {}
 
 body.get = (req, res) => {
-    EnvironmentSchema.find({solution: res.locals.solution._id}, (err, docs) => {
+    EnvironmentSchema.find(res.locals.solution ? {solution: res.locals.solution._id} : {}, (err, docs) => {
         if(err)
             return res.json([])
         

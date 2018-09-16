@@ -9,6 +9,7 @@ import { AllowCrossDomain } from './app/middlewares/cors'
 app.use(AllowCrossDomain)
 app.use(bodyParser.urlencoded({'extended':'true'}))
 app.use(bodyParser.json())
+app.set('token', 'ahdskfjwoikfadsf03i4ohrje0989uh3owefaihojn32whiaeojdsfjaosdkf')
 app.set('crypt_key', 'dfhads8g3bfosdfs')
 app.set('port', process.env.PORT || 8080)
 
