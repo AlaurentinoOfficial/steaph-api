@@ -3,6 +3,7 @@ var relationship = require("mongoose-relationship")
 
 let environmentSchema = new mongoose.Schema({
     solution: {type: mongoose.Schema.Types.ObjectId, ref:"Solution", childPath:"environments", required: true},
+    device_id: {type: String, required: true},
     name: {type: String, required: true},
     status: {type: Boolean, default: false, required: true},
     modules: [{type: String, required: false}],
