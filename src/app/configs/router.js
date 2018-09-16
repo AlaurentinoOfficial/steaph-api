@@ -51,12 +51,4 @@ exports.Router = (app) => {
 
     app.route('/status/:id')
         .delete(Authenticate({}), EnvironmentStatusController.deleteById)
-    
-    app.route('/module')
-        .get(Authenticate({}), ModuleController.get)
-        .post(Authenticate({}), ModuleController.add)
-        
-    app.route('/module/:id')
-        .put(Authenticate({}), ModuleController.updateById)
-        .delete(Authenticate({}), ModuleController.deleteById)
 }
