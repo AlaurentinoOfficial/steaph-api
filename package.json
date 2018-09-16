@@ -4,11 +4,11 @@
   "description": "Steaph API is responsable to communicate the end points with the database",
   "main": "dist/bin/www.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "babel ./src/ --out-dir ./dist && node dist/bin/www.js",
+    "test": "mocha src/test.js",
+    "start": "npm run babel && node dist/bin/www.js",
+    "babel": "babel ./src/ --out-dir ./dist",
     "babelw": "babel --watch ./src/ --out-dir ./dist",
-    "docker": "babel ./src/ --out-dir ./dist && node dist/bin/www.js --docker",
-    "mock": "babel ./src/ --out-dir ./dist && node ./dist/mocks.js"
+    "docker": "npm run babel && node dist/bin/www.js --docker"
   },
   "keywords": [
     "iot",
@@ -27,10 +27,12 @@
     "mqtt": "^2.17.0"
   },
   "devDependencies": {
+    "axios": "^0.18.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-stage-2": "^6.22.0",
-    "babel-register": "^6.22.0"
+    "babel-register": "^6.22.0",
+    "mocha": "^5.2.0"
   }
 }
