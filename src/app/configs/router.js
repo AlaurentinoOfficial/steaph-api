@@ -6,7 +6,6 @@ import { UserController } from "../controllers/user"
 import { EnvironmentController } from "../controllers/environment"
 import { EnvironmentScheduleController } from "../controllers/environment_schedule"
 import { EnvironmentStatusController } from "../controllers/environment_status"
-import { ModuleController } from "../controllers/module"
 import { SolutionController } from "../controllers/solution"
 import { LocalDomain } from '../middlewares/cors'
 
