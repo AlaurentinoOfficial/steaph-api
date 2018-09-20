@@ -8,5 +8,19 @@ let environmentScheduleSchema = new mongoose.Schema({
     day: {type: Number, min: 0, max: 6, required: true}
 });
 
+environmentScheduleSchema.post('save', (doc, next) => {
+    EnvironmentScheduleSchema.find({}, (err, schedules) => {
+        if(err) return next()
+
+        const payload = [
+            {topic: "steaph.schedules", messages: schedules, partition: 0}
+        ]
+
+        KafkaProducerSend(payload, (e, s) => {
+            next()
+        })
+    })
+})
+
 environmentScheduleSchema.plugin(relationship, { relationshipPathName:'environment' });
 exports.EnvironmentScheduleSchema = mongoose.model('EnvironmentSchedule', environmentScheduleSchema);

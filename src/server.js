@@ -7,6 +7,7 @@ import { Router } from './app/configs/router'
 import { AllowCrossDomain } from './app/middlewares/cors'
 import { SolutionSchema } from './app/models/solution';
 import { UserSchema } from './app/models/user';
+import { KafkaInit } from './app/configs/kafka';
 
 app.use(AllowCrossDomain)
 app.use(bodyParser.urlencoded({'extended':'true'}))
@@ -17,6 +18,7 @@ app.set('port', process.env.PORT || 8080)
 
 Router(app)
 DbConfig("mongodb://localhost:27017/steaph")
+KafkaInit("http://127.0.0.1:9022")
 
 // var solution = {
 //     name: "NAVE Recife",
