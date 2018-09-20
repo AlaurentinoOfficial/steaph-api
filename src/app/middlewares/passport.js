@@ -18,6 +18,7 @@ function Authenticate(options) {
     return function Authenticate(req, res, next) {
         let token = req.headers["authorization"]
 
+        // Verify if is EITHER a ACCOUNT
         if(options.mode === Mode.AUTH || options.mode === undefined) {
             jwt.verify(token, Server.get('crypt_key'), (err, result) => {
                 if(err || !result) return res.json(Strings.INVALID_TOKEN)
@@ -32,6 +33,8 @@ function Authenticate(options) {
                 })
             })
         }
+
+        // OR other SERVICE
         else if(options.mode === Mode.LOCAL_SERVER) {
             if(token == Server.get('token')) {
                 res.locals.user = null

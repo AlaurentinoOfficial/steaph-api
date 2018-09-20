@@ -1,6 +1,29 @@
 const assert = require("assert")
 const axios = require("axios")
 
+// var solution = {
+//     name: "NAVE Recife",
+//     cpf_cnpj: "12345678901",
+//     type: "legal",
+// }
+// SolutionSchema.create(solution, (err, s) => {
+//     if(err) return console.log("Error on create solution!\n"+err)
+
+//     var user = {
+//         solution: s,
+//         name: "Anderson Laurentino",
+//         email: "alaurentino.br@gmail.com",
+//         password: "1234567890n",
+//         level: "admin",
+//         status: "true"
+//     }
+//     UserSchema.create(user, (err2, u) => {
+//         if(err2) console.log("Error on create the user!")
+
+//         console.log("Very very good!")
+//     })
+// })
+
 describe("Try login", async function() {
     it("try receive the token", async function() {
         var res = await axios.post("http://localhost:8080/login", {email: "alaurentino.br@gmail.com", password: "1234567890n"})

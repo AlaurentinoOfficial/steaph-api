@@ -1,3 +1,4 @@
+// Enable all the address access any methods in the server
 exports.AllowCrossDomain = (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -6,6 +7,7 @@ exports.AllowCrossDomain = (req, res, next) => {
     next();
 }
 
+// Enable just the local address access the GET method
 exports.LocalDomain = (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '127.0.0.1');
     res.header('Access-Control-Allow-Methods', 'GET');
