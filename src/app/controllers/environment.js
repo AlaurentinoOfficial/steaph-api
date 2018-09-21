@@ -34,18 +34,6 @@ body.getById = (req, res) => {
     EnvironmentSchema.findOne({solution: res.locals.solution._id, _id: req.params.id}, (err, docs) => {
         if(err)
             return res.json([])
-            
-        EnvironmentScheduleSchema.find({environment: docs._id}, (er, schedules) => {
-            var status = false
-            
-            schedules.forEach(s => {
-                if(_checkTime(s))
-                    status = true
-            })
-            
-            docs.status = status
-            docs.save()
-        })
         
         res.json(docs);
     })

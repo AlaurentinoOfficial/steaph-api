@@ -37,10 +37,10 @@ exports.Router = (app) => {
         .post(Authenticate({}), EnvironmentScheduleController.add)
     
     app.route('/local/schedule')
-        .get(Authenticate({mode: "LocalServer"}), EnvironmentController.get)
+        .get(Authenticate({mode: "LocalServer"}), EnvironmentScheduleController.get)
         
     app.route('/schedule/:id')
-        .put(Authenticate({}), EnvironmentScheduleController.updateById)
+        // .put(Authenticate({}), EnvironmentScheduleController.updateById)
         .delete(Authenticate({}), EnvironmentScheduleController.deleteById)
 
     app.route('/environment/:id/status')
