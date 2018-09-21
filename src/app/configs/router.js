@@ -7,7 +7,6 @@ import { EnvironmentController } from "../controllers/environment"
 import { EnvironmentScheduleController } from "../controllers/environment_schedule"
 import { EnvironmentStatusController } from "../controllers/environment_status"
 import { SolutionController } from "../controllers/solution"
-import { LocalDomain } from '../middlewares/cors'
 
 exports.Router = (app) => {
 
@@ -26,7 +25,7 @@ exports.Router = (app) => {
         .post(Authenticate({}), EnvironmentController.add)
 
     app.route('/local/environment')
-        .get(LocalDomain, Authenticate({mode: "LocalServer"}), EnvironmentController.get)
+        .get(Authenticate({mode: "LocalServer"}), EnvironmentController.get)
     
     app.route('/environment/:id')
         .get(Authenticate({}), EnvironmentController.getById)
@@ -38,7 +37,7 @@ exports.Router = (app) => {
         .post(Authenticate({}), EnvironmentScheduleController.add)
     
     app.route('/local/schedule')
-        .get(LocalDomain, Authenticate({mode: "LocalServer"}), EnvironmentController.get)
+        .get(Authenticate({mode: "LocalServer"}), EnvironmentController.get)
         
     app.route('/schedule/:id')
         .put(Authenticate({}), EnvironmentScheduleController.updateById)
