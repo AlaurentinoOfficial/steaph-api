@@ -24,7 +24,7 @@ app.set('port', process.env.PORT || 8080)
 //     APP CONFIG
 //======================
 Router(app)
-MongoDBInit("mongodb://localhost:27017/steaph")
+MongoDBInit("mongodb://mongo:27017/steaph")
 KafkaInit("http://127.0.0.1:9022")
 //======================
 
